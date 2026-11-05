@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skyline Tycoon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="map"></div>
+
+  <header id="topbar" hidden>
+    <div class="brand"><i class="fa-solid fa-plane-up"></i><span>Skyline</span></div>
+    <button class="company" id="my-page" data-i18n-title="Min side"><span id="my-avatar"></span><b id="company"></b></button>
+    <div class="stat"><span data-i18n="Kasse">Kasse</span><b id="cash" class="mono">$0</b></div>
+    <div class="stat"><span data-i18n="Resultat / min">Resultat / min</span><b id="rate" class="mono">$0</b></div>
+    <div class="stat"><span>Jet A-1</span><b id="fuel" class="mono"></b></div>
+    <div class="stat"><span data-i18n="Licens">Licens</span><b id="license"></b></div>
+    <div class="stat"><span data-i18n="Spiltid">Spiltid</span><b id="clock" class="mono"></b></div>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="search" data-i18n-ph="Søg lufthavn – CPH, Heathrow, Tokyo …" autocomplete="off" data-i18n-title="Søg lufthavn">
+      <div id="search-results"></div>
+    </div>
+    <button id="logout" class="icon" data-i18n-title="Log ud"><i class="fa-solid fa-right-from-bracket"></i></button>
+  </header>
+
+  <aside id="sidebar" hidden>
+    <nav id="tabs">
+      <button data-tab="overview" class="active"><i class="fa-solid fa-chart-line"></i><span data-i18n="Overblik">Overblik</span></button>
+      <button data-tab="airports"><i class="fa-solid fa-tower-observation"></i><span data-i18n="Lufthavne">Lufthavne</span></button>
+      <button data-tab="fleet"><i class="fa-solid fa-plane"></i><span data-i18n="Flåde">Flåde</span></button>
+      <button data-tab="company"><i class="fa-solid fa-briefcase"></i><span data-i18n="Selskab">Selskab</span></button>
+      <button data-tab="leaderboard"><i class="fa-solid fa-trophy"></i><span data-i18n="Rangliste">Rangliste</span></button>
+    </nav>
+    <div id="panel"></div>
+  </aside>
+
+  <aside id="detail" hidden></aside>
+  <div id="pick-banner" hidden></div>
+  <div id="modal" class="modal" hidden></div>
+  <main id="page" hidden></main>
+
+  <div id="auth">
+    <form id="auth-form" class="card">
+      <div class="auth-top">
+        <div class="brand big"><i class="fa-solid fa-plane-up"></i><span>Skyline Tycoon</span></div>
+        <label class="lang-pick"><i class="fa-solid fa-globe"></i><select id="auth-lang" data-i18n-title="Sprog"></select></label>
+      </div>
+      <p class="muted" data-i18n="Byg dit eget flyselskab på rigtige lufthavne med rigtige fly.">Byg dit eget flyselskab på rigtige lufthavne med rigtige fly.</p>
+      <div class="seg" role="tablist">
+        <button type="button" data-mode="login" class="active" data-i18n="Log ind">Log ind</button>
+        <button type="button" data-mode="register" data-i18n="Opret konto">Opret konto</button>
+      </div>
+      <label><span data-i18n="Brugernavn">Brugernavn</span><input name="username" required autocomplete="username"></label>
+      <label><span data-i18n="Adgangskode">Adgangskode</span><input name="password" type="password" required autocomplete="current-password"></label>
+      <label class="register-only" hidden><span data-i18n="Selskabsnavn">Selskabsnavn</span><input name="company" data-i18n-ph="fx Nordlys Air"></label>
+      <button class="primary" type="submit" id="auth-submit" data-i18n="Log ind">Log ind</button>
+      <p id="auth-error" class="error"></p>
+    </form>
+  </div>
+
+  <div id="toasts" aria-live="polite"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
